@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UPI Payment - CampusEats</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f8f8f8;
+      padding: 2rem;
+      color: #333;
+    }
+    h1 {
+      color: #d63447;
+    }
+    .section {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .cart-item {
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #ddd;
+    }
+    .total {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-top: 1rem;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+    input {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.3rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      margin-top: 2rem;
+      padding: 0.75rem 1.5rem;
+      background: #d63447;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .back {
+      margin-top: 1rem;
+      display: inline-block;
+      text-decoration: none;
+      color: #d63447;
+    }
+    #qr-section {
+      text-align: center;
+      display: none;
+    }
+    #qr-code {
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Pay via UPI 🏦</h1>
+
+  <div class="section">
+    <h2>Order Summary 🧾</h2>
+    <div id="cart-items"></div>
+    <p class="total">Total: ₹<span id="total-amount">0</span></p>
+  </div>
+
+  <div class="section">
+    <h2>Enter Your UPI ID</h2>
+    <label for="upi-id">UPI ID</label>
+    <input type="text" id="upi-id" placeholder="you@upi" required />
+
+    <button onclick="generateQRCode()">Generate QR Code</button>
+
+    <div id="qr-section">
+      <p>Scan this QR code with any UPI app to pay:</p>
+      <img id="qr-code" src="" alt="QR Code" width="250" />
+      <br />
+      <button onclick="completePayment()">✅ I’ve Paid</button>
+    </div>
+
+    <br>
+    <a href="cart.html" class="back">⬅ Back to Cart</a>
+  </div>
+
+  <script>
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cartContainer = document.getElementById("cart-items");
+    const totalElement = document.getElementById("total-amount");
+    let totalAmount = 0;
+
+    function renderCart() {
+      cartContainer.innerHTML = "";
+      totalAmount = 0;
+      cart.forEach(item => {
+        const div = document.createElement("div");
+        div.classList.add("cart-item");
+        div.innerHTML = `<strong>${item.name}</strong> - ₹${item.price}`;
+        cartContainer.appendChild(div);
+        totalAmount += item.price;
+      });
+      totalElement.textContent = totalAmount;
+    }
+
+    function generateQRCode() {
+      const upiId = document.getElementById("upi-id").value.trim();
+      if (!upiId || !upiId.includes('@')) {
+        alert("Please enter a valid UPI ID (e.g., you@upi)");
+        return;
+      }
+
+      const upiUrl = `upi://pay?pa=${upiId}&pn=CampusEats&am=${totalAmount}&cu=INR`;
+      const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(upiUrl)}&size=250x250`;
+
+
+      document.getElementById("qr-code").src = qrUrl;
+      document.getElementById("qr-section").style.display = "block";
+    }
+
+    function completePayment() {
+      alert("Payment confirmed! 🎉");
+      localStorage.removeItem("cart");
+      window.location.href = "success.html";
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>

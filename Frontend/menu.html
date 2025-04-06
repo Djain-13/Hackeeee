@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CampusEats - Outlets</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Poppins', sans-serif;
+        background: url("https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L2lzMTYwNjItaW1hZ2Uta3d2eWZrd3IuanBn.jpg") no-repeat center center fixed;
+        background-size: cover;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+
+      .container {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        padding: 3rem 2rem;
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        width: 90%;
+        max-width: 850px;
+        color: white;
+      }
+
+      h1 {
+        color: #000000;
+        font-size: 2.7rem;
+        margin-bottom: 2rem;
+        font-weight: 600;
+      }
+
+      .card-grid {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 16px;
+        padding: 1.8rem 1.2rem;
+        width: 200px;
+        text-align: center;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease-in-out;
+        cursor: pointer;
+      }
+
+      .card:hover {
+        transform: translateY(-10px) scale(1.03);
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      .card img {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 1rem;
+        transition: transform 0.3s;
+      }
+
+      .card:hover img {
+        transform: scale(1.1);
+      }
+
+      .card-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #fff;
+      }
+
+      @media (max-width: 600px) {
+        .card {
+          width: 100%;
+        }
+
+        h1 {
+          font-size: 2rem;
+        }
+      }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Where do you want to order from?</h1>
+      <div class="card-grid">
+        <div class="card" onclick="location.href='Southern.html'">
+          <img
+            src="https://thesouthernstory.com/cdn/shop/files/Untitled_Artwork_1.png?v=1732014610&width=500"
+            alt="Southern"/>
+          <div class="card-title">Southern Stories</div>
+        </div>
+        <div class="card" onclick="location.href='quench.html'">
+          <img
+            src="https://cdn.pixabay.com/photo/2024/03/01/19/50/ai-generated-8607140_1280.jpg"
+            alt="Quench"/>
+          <div class="card-title">Quench</div>
+        </div>
+        <div class="card" onclick="location.href='snapeats.html'">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ031Hxs-wy09ILy0w9k3lollqZ9u_3iT-aTw&s"
+            alt="SnapEats"/>
+          <div class="card-title">SnapEats</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
