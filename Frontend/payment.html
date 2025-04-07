@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>UPI Payment - CampusEats</title>
+  <title>Payment - CampusEats</title>
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -44,7 +44,7 @@
       border-radius: 6px;
     }
     button {
-      margin-top: 2rem;
+      margin-top: 1rem;
       padding: 0.75rem 1.5rem;
       background: #d63447;
       color: white;
@@ -52,6 +52,10 @@
       border-radius: 6px;
       cursor: pointer;
       font-size: 1rem;
+    }
+    .cash-button {
+      background: #ffc107;
+      color: #333;
     }
     .back {
       margin-top: 1rem;
@@ -70,19 +74,18 @@
 </head>
 <body>
 
-  <h1>Pay via UPI 🏦</h1>
+  <h1>Payment - CampusEats 🧾</h1>
 
   <div class="section">
-    <h2>Order Summary 🧾</h2>
+    <h2>Order Summary 🛍️</h2>
     <div id="cart-items"></div>
     <p class="total">Total: ₹<span id="total-amount">0</span></p>
   </div>
 
   <div class="section">
-    <h2>Enter Your UPI ID</h2>
-    <label for="upi-id">UPI ID</label>
+    <h2>Pay via UPI</h2>
+    <label for="upi-id">Enter UPI ID</label>
     <input type="text" id="upi-id" placeholder="you@upi" required />
-
     <button onclick="generateQRCode()">Generate QR Code</button>
 
     <div id="qr-section">
@@ -91,10 +94,15 @@
       <br />
       <button onclick="completePayment()">✅ I’ve Paid</button>
     </div>
-
-    <br>
-    <a href="cart.html" class="back">⬅ Back to Cart</a>
   </div>
+
+  <div class="section">
+    <h2>Or Pay by Cash 💵</h2>
+    <p>You can also choose to pay in cash upon food pickup.</p>
+    <button onclick="payByCash()" class="cash-button">Pay by Cash</button>
+  </div>
+
+  <a href="cart.html" class="back">⬅ Back to Cart</a>
 
   <script>
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -125,7 +133,6 @@
       const upiUrl = `upi://pay?pa=${upiId}&pn=CampusEats&am=${totalAmount}&cu=INR`;
       const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(upiUrl)}&size=250x250`;
 
-
       document.getElementById("qr-code").src = qrUrl;
       document.getElementById("qr-section").style.display = "block";
     }
@@ -136,7 +143,17 @@
       window.location.href = "success.html";
     }
 
+    function payByCash() {
+      const confirmCash = confirm("Are you sure you want to pay by cash?");
+      if (confirmCash) {
+        alert("Order placed! Please pay in cash at the counter. 💵");
+        localStorage.removeItem("cart");
+        window.location.href = "success.html";
+      }
+    }
+
     renderCart();
   </script>
+
 </body>
 </html>
